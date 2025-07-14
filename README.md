@@ -19,16 +19,19 @@ Este proyecto es una API REST para gestionar las operaciones de una tienda. Ofre
 ## Instalación
 
 1. Clona el repositorio.
+
    ```bash
-   git clone https://github.com/zelys/api-gestion-tienda.git
+   git clone https://github.com/zelys/api-tienda.git
    ```
 
 2. Navega al directorio del proyecto.
+
    ```bash
    cd tienda
    ```
 
 3. Compila y empaqueta el proyecto usando Maven.
+
    ```bash
    mvn clean package
    ```
@@ -53,4 +56,3 @@ Las contribuciones son bienvenidas. Por favor, sigue los lineamientos de contrib
 ## Licencia
 
 Este proyecto está licenciado bajo la Licencia MIT.
-
