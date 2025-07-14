@@ -1,0 +1,44 @@
+CREATE TABLE clientes (
+    id_cliente BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    dni VARCHAR(10) NOT NULL UNIQUE,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE productos (
+    id_producto BIGINT AUTO_INCREMENT PRIMARY KEY,
+    codigo_producto INT NOT NULL UNIQUE,
+    nombre VARCHAR(50) NOT NULL,
+    marca VARCHAR(50) NOT NULL,
+    costo DECIMAL(18, 2) NOT NULL,
+    cantidad_disponible INT NOT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE ventas (
+    id_venta BIGINT AUTO_INCREMENT PRIMARY KEY,
+    codigo_venta INT NOT NULL UNIQUE,
+    fecha_venta DATE NOT NULL,
+    total DECIMAL(18, 2) NOT NULL,
+    id_cliente BIGINT NOT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_venta_cliente FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+);
+
+CREATE TABLE detalles_ventas (
+    id_detalle BIGINT AUTO_INCREMENT PRIMARY KEY,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(18, 2) NOT NULL,
+    subtotal DECIMAL(18, 2) NOT NULL,
+    id_producto BIGINT NOT NULL,
+    id_venta BIGINT NOT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_detalle_producto FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
+    CONSTRAINT fk_detalle_venta FOREIGN KEY (id_venta) REFERENCES ventas(id_venta) ON DELETE CASCADE
+);
+
